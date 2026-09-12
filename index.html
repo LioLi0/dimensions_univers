@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activité : Dimensions dans l'Univers</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        #container {
+            width: 100%;
+            height: 100%;
+            max-width: 1024px;
+            max-height: 768px;
+        }
+        .loading {
+            color: white;
+            position: absolute;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading">Chargement de l'activité Flash...</div>
+    <div id="container"></div>
+
+    <!-- Chargement de l'émulateur Ruffle depuis un serveur public -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("container");
+            container.appendChild(player);
+
+            // On charge le fichier .swf.
+            // ATTENTION : Le nom doit être EXACTEMENT le même que votre fichier
+            player.load("Activité_doc1_DimensionsDansUnivers.swf").then(() => {
+                document.getElementById("loading").style.display = "none";
+            }).catch((e) => {
+                document.getElementById("loading").innerHTML = "Erreur : Le fichier .swf est introuvable.";
+                console.error(e);
+            });
+        });
+    </script>
+</body>
+</html>
